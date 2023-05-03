@@ -78,6 +78,13 @@
             </executions>
             </plugin>
         </plugins>
+
+		<resources>
+			<resource>
+				<directory>config/local</directory>
+			</resource>
+		</resources>
+
     </build>
 
 </project>

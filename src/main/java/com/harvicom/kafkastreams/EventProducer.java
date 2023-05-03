@@ -6,6 +6,7 @@ import org.apache.kafka.common.serialization.IntegerSerializer;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.core.io.ClassPathResource;
 
 import java.util.Properties;
 import java.io.BufferedReader;
@@ -13,6 +14,7 @@ import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -33,11 +35,14 @@ public class EventProducer {
         Properties props = new Properties();
         String topicName="";
 
-        try (InputStream input = new FileInputStream("./config/EventProducer.properties")) {
+        //try (InputStream input = new FileInputStream("EventProducer.properties")) {
+        try (InputStream input = new ClassPathResource("EventProducer.properties").getInputStream()) {
+            //InputStream is = new ClassPathResource("/path/to/your/file").getInputStream()
 
             Properties prop = new Properties();
             // load a properties file
             prop.load(input);
+            //prop.load(Classname.class.getClassLoader().getResourceAsStream("foo.properties"));
             props.put(ProducerConfig.CLIENT_ID_CONFIG, prop.getProperty("EventProducer.producerApplicationID"));
             props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, prop.getProperty("EventProducer.bootstrapServers"));
             topicName=prop.getProperty("topicName");
@@ -58,7 +63,8 @@ public class EventProducer {
         String timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(new Date());
 
 		try {
-			reader = new BufferedReader(new FileReader("./SampleTransactions.txt"));
+			//reader = new BufferedReader(new FileReader("SampleTransactions.txt"));
+            reader = new BufferedReader(new InputStreamReader(new ClassPathResource("SampleTransactions.txt").getInputStream()));
 			String line = reader.readLine();
 
             int i=1;
