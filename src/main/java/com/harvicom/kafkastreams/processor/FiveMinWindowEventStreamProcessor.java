@@ -11,6 +11,9 @@ import org.apache.kafka.streams.kstream.TimeWindows;
 import org.apache.kafka.streams.kstream.Windowed;
 import org.apache.kafka.streams.kstream.Materialized;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -34,6 +37,9 @@ import org.apache.kafka.streams.KeyValue;
 import java.time.Duration;
 
 @Component
+@Configuration
+@Profile("one")
+@PropertySource("file:/config/application.properties")
 public class FiveMinWindowEventStreamProcessor {
 
     @Autowired
