@@ -31,6 +31,7 @@ public class FiveMinWindowEventStreamProcessor {
 
     @Autowired
     private StreamsBuilder streamsBuilder;
+    private FiveMinWindowProperties fiveMinWindowProperties;
 
     @PostConstruct
     public void streamTopology() {
