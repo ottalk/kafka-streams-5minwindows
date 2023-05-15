@@ -9,6 +9,8 @@ import org.apache.kafka.streams.kstream.Windowed;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 import javax.annotation.PostConstruct;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -33,6 +35,13 @@ public class FiveMinWindowEventStreamProcessor {
     private StreamsBuilder streamsBuilder;
     private FiveMinWindowProperties fiveMinWindowProperties;
 
+    private String getNodeValue(ObjectNode node,String nodeValue) {
+        String result="";
+        if (node.has(nodeValue)){
+            result=node.get(nodeValue).asText();
+        }
+        return result;
+    }  
     @PostConstruct
     public void streamTopology() {
 
@@ -55,13 +64,15 @@ public class FiveMinWindowEventStreamProcessor {
         KStream<String, JsonNode> kStream = streamsBuilder.stream("streams-test-1", Consumed.with(Serdes.String(), jsonSerde));
 
 
+
         //kStream.filter((key, value) -> value.startsWith("Message_")).mapValues((k, v) -> v.toUpperCase()).peek((k, v) -> System.out.println("Key : " + k + " Value : " + v)).to("streams-test-2", Produced.with(Serdes.String(), Serdes.String()));
         kStream.map(new KeyValueMapper<String,JsonNode,KeyValue<String,JsonNode>>() {
             @Override
             public KeyValue<String, JsonNode> apply(String key, JsonNode value) {
                 ObjectNode node = (ObjectNode) value;
                 //node.put("TRANSACTION_TIME",node.get("TRANSACTION_TIME").asText()+"TEST");
-                String compositeKey=node.get("MERCHANT_NO").asText()+":"+node.get("DIV").asText()+":"+node.get("COUNTRY").asText();
+                //String compositeKey=node.get("MERCHANT_NO").asText()+":"+node.get("DIV").asText()+":"+node.get("COUNTRY").asText();
+                String compositeKey=getNodeValue(node,"MERCHANT_NO")+getNodeValue(node,"DIV")+getNodeValue(node,"COUNTRY")+getNodeValue(node,"CRAP");
                 return new KeyValue<>(compositeKey, value);
             }
         }).to("streams-test-2", Produced.with(Serdes.String(),jsonSerde));
