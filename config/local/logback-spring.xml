@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
 
-    <!-- <property name="LOGS" value="./five-min-window/logs" /> -->
-    <property name="LOGS" value="${log.file.root:-./five-min-window/logs}" />
+    <property name="LOGS" value="${log.file.root}:-./logs" />
 
     <appender name="Console"
         class="ch.qos.logback.core.ConsoleAppender">
