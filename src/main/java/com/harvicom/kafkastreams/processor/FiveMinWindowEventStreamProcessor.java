@@ -9,7 +9,12 @@ import org.apache.kafka.streams.kstream.Windowed;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+
+import java.text.DecimalFormat;
+
 import javax.annotation.PostConstruct;
+import javax.naming.spi.ObjectFactory;
+
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.apache.kafka.common.serialization.Serde;
@@ -36,13 +41,29 @@ public class FiveMinWindowEventStreamProcessor {
     @Value("${fiveminwindows.outputTopicName}")
     String outputTopicName;
 
+    DecimalFormat df = new DecimalFormat("##########"); 
+
     private String getNodeValue(ObjectNode node,String nodeValue) {
         String result="";
         if (node.has(nodeValue)){
             result=node.get(nodeValue).asText();
         }
         return result;
-    }  
+    } 
+
+    private Double getNodeValueDouble(ObjectNode node,String nodeValue) {
+        Double result=0.0;
+        if (node.has(nodeValue)){
+            try {
+                return Double.parseDouble(node.get(nodeValue).asText());
+            } catch (NumberFormatException nfe) {
+                System.out.println("ERROR: nodeValue does not contain double value - " + nfe.getMessage());
+                return 0.0;
+            }
+        }
+        return result;
+    } 
+
     @PostConstruct
     public void streamTopology() {
 
@@ -73,7 +94,8 @@ public class FiveMinWindowEventStreamProcessor {
                 //node.put("TRANSACTION_TIME",node.get("TRANSACTION_TIME").asText()+"TEST");
                 //String compositeKey=node.get("MERCHANT_NO").asText()+":"+node.get("DIV").asText()+":"+node.get("COUNTRY").asText();
                 String compositeKey=getNodeValue(node,"MERCHANT_NO")+getNodeValue(node,"DIV")+getNodeValue(node,"COUNTRY")+getNodeValue(node,"CRAP");
-                return new KeyValue<>(compositeKey, value);
+                node.put("RESPONSE_TIME_CALC_DOUBLE",getNodeValueDouble(node, "RESPONSE_TIME")+5.5);
+                return new KeyValue<>(compositeKey, node);
             }
         }).to(outputTopicName, Produced.with(Serdes.String(),jsonSerde));
     }
