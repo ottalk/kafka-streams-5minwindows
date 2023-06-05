@@ -5,7 +5,6 @@ import org.apache.kafka.streams.StreamsBuilder;
 import org.apache.kafka.streams.kstream.Consumed;
 import org.apache.kafka.streams.kstream.KStream;
 import org.apache.kafka.streams.kstream.Produced;
-import org.apache.kafka.streams.kstream.Windowed;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -15,12 +14,8 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.apache.kafka.common.serialization.Serde;
 import org.apache.kafka.common.serialization.Deserializer;
 import org.apache.kafka.common.serialization.Serializer;
-import org.apache.kafka.common.serialization.StringSerializer;
-import org.apache.kafka.common.serialization.StringDeserializer;
 import org.apache.kafka.connect.json.JsonDeserializer;
 import org.apache.kafka.connect.json.JsonSerializer;
-import org.apache.kafka.streams.kstream.TimeWindowedSerializer;
-import org.apache.kafka.streams.kstream.TimeWindowedDeserializer;
 import org.apache.kafka.streams.kstream.KeyValueMapper;
 import org.apache.kafka.streams.KeyValue;
 
@@ -63,13 +58,13 @@ public class FiveMinWindowEventStreamProcessor {
         Serializer<JsonNode> jsonSerializer = new JsonSerializer();
         Serde<JsonNode> jsonSerde = Serdes.serdeFrom(jsonSerializer, jsonDeserializer);
 
-        StringSerializer stringSerializer = new StringSerializer();
-        StringDeserializer stringDeserializer = new StringDeserializer();
-        Serde<String> stringSerde = Serdes.serdeFrom(stringSerializer, stringDeserializer);
+        //StringSerializer stringSerializer = new StringSerializer();
+        //StringDeserializer stringDeserializer = new StringDeserializer();
+        //Serde<String> stringSerde = Serdes.serdeFrom(stringSerializer, stringDeserializer);
 
-        TimeWindowedSerializer<String> windowedSerializer = new TimeWindowedSerializer<>(stringSerializer);
-        TimeWindowedDeserializer<String> windowedDeserializer = new TimeWindowedDeserializer<>();
-        Serde<Windowed<String>> windowedSerde = Serdes.serdeFrom(windowedSerializer, windowedDeserializer);
+        //TimeWindowedSerializer<String> windowedSerializer = new TimeWindowedSerializer<>(stringSerializer);
+        //TimeWindowedDeserializer<String> windowedDeserializer = new TimeWindowedDeserializer<>();
+        //Serde<Windowed<String>> windowedSerde = Serdes.serdeFrom(windowedSerializer, windowedDeserializer);
 
         // Consumed<String, JsonNode> consumerOptions = Consumed.with(Serdes.String(),
         // jsonSerde).withTimestampExtractor(new StringTimestampExtractor());

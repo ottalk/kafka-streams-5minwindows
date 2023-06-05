@@ -44,6 +44,7 @@ class FiveMinWindowEventStreamProcessorUnitTest {
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     void givenInputMessages_whenProcessed_thenWordCountIsProduced() {
         StreamsBuilder streamsBuilder = new StreamsBuilder();
         fiveMinWindowEventStreamProcessor.inputTopicName="input-topic";
@@ -79,9 +80,7 @@ class FiveMinWindowEventStreamProcessorUnitTest {
                 e.printStackTrace();
             } 
 
-            assertThat(outputTopic.readKeyValuesToList()).containsExactly(
-                    KeyValue.pair("123000020001UK", expectedJsonNode)
-                );
+            assertThat(outputTopic.readKeyValuesToList()).containsExactly(KeyValue.pair("123000020001UK", expectedJsonNode));
         }
     }
 

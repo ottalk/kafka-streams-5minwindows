@@ -2,30 +2,33 @@ package com.harvicom.kafkastreams.processor;
 
 import org.apache.kafka.streams.processor.TimestampExtractor;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
-
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import java.time.Instant;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class StringTimestampExtractor implements TimestampExtractor {
+
+  private static final Logger logger = LogManager.getLogger();
+
   @Override
   public long extract(ConsumerRecord<Object, Object> record, long partitionTime) {
-    //String json = (String) record.value();
 
-    // create object mapper instance
-    //ObjectMapper mapper = new ObjectMapper();
-
-    // convert JSON string to `JsonNode`
-    //JsonNode node = null;
-    //try {
-    //  node = mapper.readTree(json);
-    //} catch (JsonProcessingException e) {
-    //  e.printStackTrace();
-    //}
-
+    SimpleDateFormat f = new SimpleDateFormat("YYYY-DD-MM HH:MM:SS.FFF", Locale.getDefault());
+    Date d = null;
     ObjectNode node = (ObjectNode) record.value();
-    if (node != null && node.get("TRANASACTION_TIME").asText() != null) {
-      String timestamp = node.get("TRANASACTION_TIME").asText();
-      return Instant.parse(timestamp).toEpochMilli();
+    if (node != null && node.get("TRANSACTION_TIME").asText() != null) {
+      String timestamp = node.get("TRANSACTION_TIME").asText();
+      
+      try {
+          d = f.parse(timestamp);
+      } catch (ParseException e) {
+          logger.error(e.getMessage());
+      }
+      return d.getTime();
     }
     return partitionTime;
   }

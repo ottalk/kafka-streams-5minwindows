@@ -19,6 +19,7 @@ public class LogAndContinueProductionExceptionHandler implements ProductionExcep
 
     @Override
     public void configure(final Map<String, ?> configs) {
+        //no-op override method required for class implementation
     }
 
 }

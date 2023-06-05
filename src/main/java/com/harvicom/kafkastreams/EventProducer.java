@@ -33,19 +33,16 @@ public class EventProducer {
         Properties props = new Properties();
         String topicName="";
 
-        //try (InputStream input = new FileInputStream("EventProducer.properties")) {
         try (InputStream input = new ClassPathResource("EventProducer.properties").getInputStream()) {
-            //InputStream is = new ClassPathResource("/path/to/your/file").getInputStream()
 
             Properties prop = new Properties();
             // load a properties file
             prop.load(input);
-            //prop.load(Classname.class.getClassLoader().getResourceAsStream("foo.properties"));
             props.put(ProducerConfig.CLIENT_ID_CONFIG, prop.getProperty("EventProducer.producerApplicationID"));
             props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, prop.getProperty("EventProducer.bootstrapServers"));
             topicName=prop.getProperty("topicName");
         } catch (IOException ex) {
-            ex.printStackTrace();
+            logger.error(ex.getMessage());
         }
 
         props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, IntegerSerializer.class.getName());
@@ -70,7 +67,6 @@ public class EventProducer {
 			while (line != null) {
 
                 JsonNode node = oreader.readTree(line);
-                //System.out.println(node.toString());
                 ObjectNode objectNode = (ObjectNode) node;
                 objectNode.put("TRANASACTION_TIME",timeStamp);
                 outputLine=node.toString();
