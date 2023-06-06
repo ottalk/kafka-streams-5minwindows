@@ -28,15 +28,11 @@ public class StringTimestampExtractorTest {
     }
 
     @Test
-    void givenTransactionTimeAndPartitionTime_ExtractAndReturnTransactionTime() {
+    void givenTransactionTimeAndPartitionTime_ExtractAndReturnTransactionTime() throws ParseException{
 
         SimpleDateFormat f = new SimpleDateFormat("YYYY-DD-MM HH:MM:SS.FFF", Locale.getDefault());
-        Date d = null;
-        try {
-            d = f.parse(transactionDateTimeStr);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        Date d=null;
+        d = f.parse(transactionDateTimeStr);
         long transactionDateTimeLong = d.getTime();
 
         testNode.put("TRANSACTION_TIME", transactionDateTimeStr);

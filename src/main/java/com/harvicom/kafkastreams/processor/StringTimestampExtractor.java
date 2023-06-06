@@ -7,6 +7,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Optional;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -18,18 +20,16 @@ public class StringTimestampExtractor implements TimestampExtractor {
   public long extract(ConsumerRecord<Object, Object> record, long partitionTime) {
 
     SimpleDateFormat f = new SimpleDateFormat("YYYY-DD-MM HH:MM:SS.FFF", Locale.getDefault());
-    Date d = null;
+    Date d = new Date(partitionTime);
     ObjectNode node = (ObjectNode) record.value();
     if (node != null && node.get("TRANSACTION_TIME").asText() != null) {
-      String timestamp = node.get("TRANSACTION_TIME").asText();
-      
+      String timestamp = node.get("TRANSACTION_TIME").asText(); 
       try {
           d = f.parse(timestamp);
       } catch (ParseException e) {
           logger.error(e.getMessage());
       }
-      return d.getTime();
     }
-    return partitionTime;
+    return Optional.of(d.getTime()).orElse(partitionTime);
   }
 }
