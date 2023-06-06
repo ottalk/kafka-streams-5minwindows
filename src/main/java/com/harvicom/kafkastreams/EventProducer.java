@@ -79,10 +79,10 @@ public class EventProducer {
 
 			reader.close();
 		
-		} catch (JsonProcessingException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-			e.printStackTrace();
+		} catch (JsonProcessingException jpe) {
+            logger.error(jpe.getMessage());
+        } catch (IOException ioe) {
+			logger.error(ioe.getMessage());
         }
 
         logger.info("Finished - Closing Kafka Producer.");
