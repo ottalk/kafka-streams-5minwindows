@@ -44,7 +44,6 @@ class FiveMinWindowEventStreamProcessorUnitTest {
     }
 
     @Test
-    @SuppressWarnings("unchecked")
     void givenInputMessages_whenProcessed_thenWordCountIsProduced() {
         StreamsBuilder streamsBuilder = new StreamsBuilder();
         fiveMinWindowEventStreamProcessor.inputTopicName="input-topic";
