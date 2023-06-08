@@ -30,7 +30,7 @@ public class StringTimestampExtractorTest {
     @Test
     void givenTransactionTimeAndPartitionTime_ExtractAndReturnTransactionTime() throws ParseException{
 
-        SimpleDateFormat f = new SimpleDateFormat("YYYY-DD-MM HH:MM:SS.FFF", Locale.getDefault());
+        SimpleDateFormat f = new SimpleDateFormat("yyyy-dd-mm HH:MM:SS.FFF", Locale.getDefault());
         Date d=null;
         d = f.parse(transactionDateTimeStr);
         long transactionDateTimeLong = d.getTime();
