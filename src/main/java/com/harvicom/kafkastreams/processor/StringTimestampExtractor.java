@@ -19,7 +19,7 @@ public class StringTimestampExtractor implements TimestampExtractor {
   @Override
   public long extract(ConsumerRecord<Object, Object> record, long partitionTime) {
 
-    SimpleDateFormat f = new SimpleDateFormat("YYYY-DD-MM HH:MM:SS.FFF", Locale.getDefault());
+    SimpleDateFormat f = new SimpleDateFormat("yyyy-dd-mm hh:mm:ss.fff", Locale.getDefault());
     Date d = new Date(partitionTime);
     ObjectNode node = (ObjectNode) record.value();
     if (node != null && node.get("TRANSACTION_TIME").asText() != null) {
