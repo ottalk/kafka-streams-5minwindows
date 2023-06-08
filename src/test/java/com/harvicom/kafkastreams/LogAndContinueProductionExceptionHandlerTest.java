@@ -5,10 +5,8 @@ import org.apache.kafka.streams.errors.ProductionExceptionHandler.ProductionExce
 import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
 import static org.assertj.core.api.Assertions.assertThat;
-
 import java.util.HashMap;
 import java.util.Map;
-
 import com.harvicom.kafkastreams.processor.LogAndContinueProductionExceptionHandler;
 
 public class LogAndContinueProductionExceptionHandlerTest {
