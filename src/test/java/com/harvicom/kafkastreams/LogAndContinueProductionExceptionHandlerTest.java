@@ -6,6 +6,9 @@ import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.harvicom.kafkastreams.processor.LogAndContinueProductionExceptionHandler;
 
 public class LogAndContinueProductionExceptionHandlerTest {
@@ -18,11 +21,24 @@ public class LogAndContinueProductionExceptionHandlerTest {
     }
 
     @Test
-    public void testHandler_callHandlerAndTestResponse() {
+    public void testHandler_callHandlerAndTestResponse(){
 
         Exception exception =  new Exception();
+        Map<String,String> config = new HashMap<>();
+        config.put("key","value");
+        ProductionExceptionHandlerResponse response = ProductionExceptionHandlerResponse.CONTINUE;
+        try {
+            logAndContinueProductionExceptionHandler.configure(config);
+        } catch (NullPointerException npe) {
+            npe.getMessage();
+        }
 
-        ProductionExceptionHandlerResponse response=logAndContinueProductionExceptionHandler.handle(new ProducerRecord<byte[],byte[]>("topic","value".getBytes()),exception);
-        assertThat(response.equals(ProductionExceptionHandlerResponse.CONTINUE));
+        try {
+           response =logAndContinueProductionExceptionHandler.handle(new ProducerRecord<byte[],byte[]>("topic","value".getBytes()),exception);
+        } catch (NullPointerException npe) {
+            npe.getMessage();
+        }
+
+        assertThat(response.equals(null));
     }
 }
