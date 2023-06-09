@@ -146,8 +146,6 @@
 				<targetPath>${project.build.outputDirectory}</targetPath>
 				<includes>
 					<include>application.properties</include>
-					<include>EventProducer.properties</include>
-					<include>SampleTransactions.txt</include>
 					<include>logback-spring.xml</include>
 				</includes>
 			</resource>
