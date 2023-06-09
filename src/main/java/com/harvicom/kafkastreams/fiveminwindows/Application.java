@@ -1,4 +1,4 @@
-package com.harvicom.kafkastreams;
+package com.harvicom.kafkastreams.fiveminwindows;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

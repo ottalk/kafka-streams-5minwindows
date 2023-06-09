@@ -1,13 +1,13 @@
-package com.harvicom.kafkastreams;
+package com.harvicom.kafkastreams.fiveminwindows;
 
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.streams.errors.ProductionExceptionHandler.ProductionExceptionHandlerResponse;
-import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 import java.util.HashMap;
 import java.util.Map;
-import com.harvicom.kafkastreams.processor.LogAndContinueProductionExceptionHandler;
+import com.harvicom.kafkastreams.fiveminwindows.processor.LogAndContinueProductionExceptionHandler;
 
 public class LogAndContinueProductionExceptionHandlerTest {
 

@@ -1,4 +1,4 @@
-package com.harvicom.kafkastreams.processor;
+package com.harvicom.kafkastreams.fiveminwindows.processor;
 
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.StreamsBuilder;

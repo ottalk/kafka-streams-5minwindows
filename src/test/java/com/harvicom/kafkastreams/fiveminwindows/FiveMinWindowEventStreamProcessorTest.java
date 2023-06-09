@@ -1,4 +1,4 @@
-package com.harvicom.kafkastreams;
+package com.harvicom.kafkastreams.fiveminwindows;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import java.util.Properties;
@@ -21,9 +21,9 @@ import org.apache.kafka.common.serialization.StringSerializer;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.apache.kafka.connect.json.JsonDeserializer;
 import org.apache.kafka.connect.json.JsonSerializer;
-import com.harvicom.kafkastreams.processor.FiveMinWindowEventStreamProcessor;
+import com.harvicom.kafkastreams.fiveminwindows.processor.FiveMinWindowEventStreamProcessor;
 
-class FiveMinWindowEventStreamProcessorUnitTest {
+class FiveMinWindowEventStreamProcessorTest {
 
     private FiveMinWindowEventStreamProcessor fiveMinWindowEventStreamProcessor;
 

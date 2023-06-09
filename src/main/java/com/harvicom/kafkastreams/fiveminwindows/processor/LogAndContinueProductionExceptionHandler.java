@@ -1,4 +1,4 @@
-package com.harvicom.kafkastreams.processor;
+package com.harvicom.kafkastreams.fiveminwindows.processor;
 
 import java.util.Map;
 import org.slf4j.Logger;

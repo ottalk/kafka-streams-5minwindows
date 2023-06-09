@@ -1,4 +1,4 @@
-package com.harvicom.kafkastreams;
+package com.harvicom.kafkastreams.fiveminwindows;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -9,7 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
-import com.harvicom.kafkastreams.processor.StringTimestampExtractor;
+import com.harvicom.kafkastreams.fiveminwindows.processor.StringTimestampExtractor;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class StringTimestampExtractorTest {

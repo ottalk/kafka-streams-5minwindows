@@ -1,4 +1,4 @@
-package com.harvicom.kafkastreams.config;
+package com.harvicom.kafkastreams.fiveminwindows.config;
 
 import org.apache.kafka.streams.StreamsConfig;
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties;

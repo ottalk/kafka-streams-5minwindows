@@ -9,11 +9,11 @@
 		<version>2.7.12</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.harvicom</groupId>
-	<artifactId>kafkastreams</artifactId>
+	<groupId>com.harvicom.kafkastreams</groupId>
+	<artifactId>fiveminwindows</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>5minvolumes</name>
-	<description>Spring Boot - Kafka Streams - 5minvolumes</description>
+	<name>fiveminwindows</name>
+	<description>Spring Boot - Kafka Streams - fiveminwindows</description>
 	<properties>
 		<java.version>11</java.version>
 		<!-- JaCoCo Properties -->
